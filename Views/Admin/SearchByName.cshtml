@@ -1,0 +1,54 @@
+﻿@model IEnumerable<VISApp.Models.Voter>
+
+@{
+    ViewBag.Title = "Search Voter";
+}
+
+<h2>Search Voter</h2>
+
+<!-- Search Form -->
+<form asp-action="SearchByName" method="post">
+    <input type="text" name="name" placeholder="Enter voter name" required />
+    <button type="submit">Search</button>
+</form>
+
+@if (Model != null && Model.Any())
+{
+    <h3>Results</h3>
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th>Voter Id</th>
+                <th>Name</th>
+                <th>Gender</th>
+                <th>Age</th>
+                <th>City</th>
+                <th>Mobile</th>
+                <th>DOB</th>
+                <th>Email</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>@item.VoterId</td>
+                    <td>@item.VoterName</td>
+                    <td>@item.Gender</td>
+                    <td>@item.age</td>
+                    <td>@item.City</td>
+                    <td>@item.MobileNumber</td>
+                    <td>@item.Dob.ToShortDateString()</td>
+                    <td>@item.EmailId</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else if (Model != null)
+{
+    <p>No voters found with that name.</p>
+}
+<div>
+    <a asp-controller="Voters" asp-action="Index">Back to List</a>
+</div>
